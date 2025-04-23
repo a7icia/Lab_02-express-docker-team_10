@@ -1,0 +1,28 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: reverse_proxy
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/templates:/etc/nginx/templates
+      - ./public_html:/usr/share/nginx/html  # Statische Dateien
+      - ./container_logs/nginx:/var/log/nginx
+    ports:
+      - "80:80"
+    environment:
+      - NGINX_PORT=80
+      - NGINX_PROXY=http://application:3002  # Verweis auf Express
+    depends_on:
+      - application
+    restart: always
+
+  application:
+    image: wt1-express-local
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - PORT=3002 
+    volumes:
+      - ./:/home/node/
+    command: "npm start"
