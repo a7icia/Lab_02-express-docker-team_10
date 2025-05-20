@@ -1,0 +1,10 @@
+<h1>{{title}}</h1>
+
+<h2>📚 Meine Bücherregale:</h2>
+<ul>
+  {{#each shelves}}
+    <li><strong>{{name}}</strong> – {{description}}</li>
+  {{/each}}
+</ul>
+
+<p><a href="/shelf/create">➕ Neues Regal erstellen</a></p>

@@ -20,23 +20,19 @@ const shelves = [
 
 
 app.get("/", (req, res) => {
-  res.send(`
-    <h1>Welcome!</h1>
-    <p>Visit the <a href="/hello">hello page</a> or <a href="/shelf">the shelf page</a>.</p>
-  `);
+ 
+  res.render("lists", {
+    layout: "main",
+    title: "Meine Bücherregale",
+    shelves,
+  });
 });
 
 app.get("/hello", (req, res) => {
   res.send("Hello IMIs!");
 });
 
-app.get("/shelf", (req, res) => {
-  res.render("shelf", {
-    layout: "main",
-    title: "My Shelf Collection",
-    shelves,
-  });
-});
+
 
 app.get("/shelf/create", (req, res) => {
   res.render("createShelf", {
@@ -44,13 +40,12 @@ app.get("/shelf/create", (req, res) => {
     title: "Regal erstellen",
   });
 });
-
 app.post("/shelf/create", (req, res) => {
-  const { name, location } = req.body;
+  const { name, description } = req.body;
 
   
-  shelves.push({ name, description: `Standort: ${location}` });
-  res.redirect("/shelf");
+  shelves.push({ name, description });
+  res.redirect("/");
 });
 
 
