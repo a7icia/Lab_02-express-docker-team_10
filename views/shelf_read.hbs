@@ -1,0 +1,24 @@
+<h2>Gelesene Bücher</h2>
+
+<form method="POST" action="/shelf/read/add" style="margin-bottom: 20px;">
+  <input type="text" name="title" placeholder="Buchtitel" required>
+  <input type="text" name="author" placeholder="Autor" required>
+  <button type="submit">Hinzufügen</button>
+</form>
+
+<ul>
+  {{#each books}}
+    <li>
+      <strong>{{this.title}}</strong> von {{this.author}}<br>
+      <span>
+        {{#each (array 1 2 3 4 5)}}
+          {{#if (lte this ../rating)}}
+            <span style="color: gold;">&#9733;</span>
+          {{else}}
+            <span style="color: lightgray;">&#9733;</span>
+          {{/if}}
+        {{/each}}
+      </span>
+    </li>
+  {{/each}}
+</ul>
